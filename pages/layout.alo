@@ -3,8 +3,8 @@
     <meta name="description" content="{{ data.site.description }}">
     <link rel="canonical" href="{{ data.site.url }}/{{ data.site.repo.split('/').pop() }}/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#e9eef0" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0f1619" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f5f7f8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0f12" media="(prefers-color-scheme: dark)">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="msilabs">
     <meta property="og:title" content="{{ data.site.name }}">

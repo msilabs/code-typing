@@ -1,58 +1,59 @@
 <template>
 <div class="wrap">
   <section class="hero">
-    <div>
-      <h1>Code Typing <span class="glyphs">{} =&gt; :: $this</span></h1>
-      <p>সাধারণ লেখা নয়, আসল কোড টাইপ করুন। ১৪টা ভাষা, প্রতিটায় ১০টা কোড, আর যত খুশি নিজের কোড। কোন চিহ্নে আঙুল আটকে যায়, খেলা নিজেই খুঁজে বের করবে।</p>
-      <div class="badges">
-        <span>১৪টা ভাষা</span>
-        <span>১৪০টা আসল কোড</span>
-        <span>দুর্বল চিহ্নের হিসাব</span>
-        <span>কোনো অ্যাকাউন্ট লাগে না</span>
-      </div>
-    </div>
+    <span class="eyebrow"><i></i>১৪টা ভাষা · ১৪০টা আসল কোড · অ্যাকাউন্ট লাগে না</span>
+    <h1>আসল কোড টাইপ করুন, <span class="grad">চিহ্নে আটকাবেন না</span></h1>
+    <p>ভাষা বাছুন, কোডে ক্লিক করুন, টাইপ শুরু করুন। কোন চিহ্নে আঙুল আটকে যায়, খেলা নিজেই খুঁজে বের করবে।</p>
   </section>
 
-  <nav class="langbar" id="langbar" aria-label="ভাষা বাছাই"></nav>
+  <div class="controls">
+    <nav class="langbar" id="langbar" aria-label="ভাষা বাছাই"></nav>
+    <button class="add-pill" id="btnAdd" type="button" title="নিজের প্রজেক্টের কোড যোগ করুন">
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      নিজের কোড
+    </button>
+  </div>
 
   <div class="main">
     <section class="editor" aria-label="টাইপ করার কোড">
       <div class="tabbar">
-        <div class="pick">
-          <select id="snipSel" aria-label="কোড বাছাই"></select>
-          <span class="tag" id="snipTag"></span>
-        </div>
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <select id="snipSel" aria-label="কোড বাছাই"></select>
         <div class="tools">
-          <button class="btn small" id="btnAdd" title="নিজের কোড যোগ করুন">+ নিজের কোড</button>
-          <button class="btn small" id="btnDrill" title="আপনার সবচেয়ে বেশি ভুল হওয়া চিহ্নগুলো আছে এমন লাইন দিয়ে অনুশীলন">দুর্বল চিহ্ন অনুশীলন</button>
-          <button class="btn small" id="btnRand" title="এলোমেলো একটা কোড">এলোমেলো</button>
-          <button class="btn small" id="btnNext">পরের কোড →</button>
+          <button class="icon-btn" id="btnRestart" type="button" title="আবার শুরু (Esc)" aria-label="আবার শুরু">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="icon-btn" id="btnRand" type="button" title="এলোমেলো কোড" aria-label="এলোমেলো কোড">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn primary small" id="btnNext" type="button">পরের কোড →</button>
+        </div>
+      </div>
+      <div class="stats">
+        <span class="tag" id="snipTag"></span>
+        <div class="live">
+          <span><b id="sWpm">০</b> শব্দ/মিনিট</span>
+          <span class="acc" id="accBox"><b id="sAcc">১০০%</b> নির্ভুল</span>
+          <span><b id="sTime">০:০০</b></span>
         </div>
       </div>
       <div class="progress"><i id="prog"></i></div>
       <div class="codebox" id="codebox">
         <textarea id="typer" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="এখানে টাইপ করুন"></textarea>
         <div class="code" id="code"></div>
-        <div class="focus-hint" id="focusHint"><span>টাইপ শুরু করতে এখানে ক্লিক করুন</span></div>
+        <div class="focus-hint" id="focusHint"><span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          ক্লিক করে টাইপ শুরু করুন</span></div>
       </div>
       <div class="statusbar">
-        <span><kbd>Enter</kbd> নতুন লাইন, ইনডেন্ট নিজে থেকে বসে যায়</span>
         <span><kbd>Esc</kbd> আবার শুরু</span>
-        <span>ভুল চাপলে কার্সর আটকে থাকবে, ঠিকটা চাপুন</span>
+        <span><kbd>Enter</kbd> নতুন লাইন, ইনডেন্ট নিজে বসে</span>
+        <span class="hide-sm">ভুল চাপলে কার্সর আটকে থাকে</span>
       </div>
       <div class="result" id="result" hidden></div>
     </section>
 
     <aside>
-      <div class="panel">
-        <h3>এই রাউন্ড</h3>
-        <div class="live">
-          <div><b id="sWpm">০</b><small>শব্দ/মিনিট</small></div>
-          <div class="acc" id="accBox"><b id="sAcc">১০০%</b><small>নির্ভুলতা</small></div>
-          <div><b id="sTime">০:০০</b><small>সময়</small></div>
-        </div>
-      </div>
-
       <div class="panel">
         <h3>এখন যা চাপবেন</h3>
         <div class="next">
@@ -65,9 +66,10 @@
       </div>
 
       <div class="panel">
-        <h3><span>দুর্বল চিহ্ন · <span id="weakLang">PHP</span></span><button class="btn small" id="btnReset" hidden>মুছুন</button></h3>
+        <h3><span>দুর্বল চিহ্ন · <span id="weakLang">PHP</span></span><button class="link-btn" id="btnReset" type="button" hidden>মুছুন</button></h3>
         <ul class="weak" id="weakList"></ul>
         <p class="sample-note" id="sampleNote" hidden>এগুলো নমুনা। একটা কোড শেষ করলেই এখানে আপনার নিজের হিসাব দেখাবে।</p>
+        <button class="btn block" id="btnDrill" type="button">দুর্বল চিহ্ন অনুশীলন</button>
       </div>
 
       <div class="panel">
@@ -77,49 +79,55 @@
     </aside>
   </div>
 
-  <section class="lib" id="lib" aria-labelledby="libTitle">
-    <div class="lib-head">
-      <h2 id="libTitle">আমার কোড</h2>
-      <p>নিজের প্রজেক্টের কোড পেস্ট করুন, সেটাই টাইপ করার তালিকায় চলে আসবে। একসাথে অনেকগুলো যোগ করতে চাইলে প্রতিটা কোডের মাঝে আলাদা লাইনে শুধু <code>---</code> লিখুন।</p>
-    </div>
-    <div class="lib-grid">
-      <form class="add" id="addForm" novalidate>
-        <div class="row2">
-          <div class="field">
-            <label for="addName">নাম (ফাঁকা রাখলে নিজে থেকে বসবে)</label>
-            <input id="addName" type="text" maxlength="60" placeholder="যেমন: PaymentService.php" autocomplete="off">
+  <dialog class="lib" id="lib" aria-labelledby="libTitle">
+    <div class="lib-box">
+      <div class="lib-head">
+        <span>
+          <b id="libTitle">নিজের কোড</b>
+          <small>নিজের প্রজেক্টের কোড পেস্ট করুন, সেটাই টাইপ করার তালিকায় চলে আসবে।</small>
+        </span>
+        <button class="icon-btn" id="libClose" type="button" aria-label="বন্ধ করুন">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="lib-grid">
+        <form class="add" id="addForm" novalidate>
+          <div class="row2">
+            <div class="field">
+              <label for="addName">নাম <small>(ঐচ্ছিক)</small></label>
+              <input id="addName" type="text" maxlength="60" placeholder="PaymentService.php" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="addLang">ভাষা</label>
+              <select id="addLang"></select>
+            </div>
           </div>
           <div class="field">
-            <label for="addLang">ভাষা</label>
-            <select id="addLang"></select>
-          </div>
-        </div>
-        <div class="field">
-          <label for="addText">কোড</label>
-          <textarea id="addText" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="public function store(Request $request)
+            <label for="addText">কোড</label>
+            <textarea id="addText" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="public function store(Request $request)
 {
-    $data = $request->validate(['title' => 'required']);
-    return Post::create($data);
+    return Post::create($request->validated());
 }
 ---
 Route::post('/posts', [PostController::class, 'store']);"></textarea>
+          </div>
+          <p class="hintline">একসাথে অনেকগুলো দিতে মাঝে আলাদা লাইনে <code>---</code> লিখুন। একটা কোডে সর্বোচ্চ ৪০ লাইন।</p>
+          <div class="formfoot">
+            <button class="btn primary" type="submit" id="addBtn">যোগ করুন</button>
+            <span class="msg" id="addMsg" role="status"></span>
+          </div>
+        </form>
+        <div>
+          <div class="mine-head">
+            <h3 id="mineTitle">PHP-এ আমার কোড</h3>
+            <span id="mineCount"></span>
+          </div>
+          <ul class="mine" id="mineList"></ul>
+          <p class="store-note" id="storeNote">শুধু এই ব্রাউজারে জমা থাকে।</p>
         </div>
-        <div class="formfoot">
-          <button class="btn primary" type="submit" id="addBtn">যোগ করুন</button>
-          <span class="msg" id="addMsg" role="status"></span>
-        </div>
-        <p class="hintline">ট্যাব নিজে থেকে ৪টা স্পেস হয়ে যায়, লাইনের শেষের ফাঁকা জায়গা বাদ পড়ে। একটা কোডে সর্বোচ্চ ৪০ লাইন।</p>
-      </form>
-      <div>
-        <div class="mine-head">
-          <h3 id="mineTitle">PHP-এ আমার কোড</h3>
-          <span id="mineCount"></span>
-        </div>
-        <ul class="mine" id="mineList"></ul>
       </div>
     </div>
-    <p class="store-note" id="storeNote">নিজের কোড শুধু এই ব্রাউজারে জমা থাকে। ব্রাউজারের ডেটা মুছলে এগুলোও মুছে যাবে।</p>
-  </section>
+  </dialog>
 </div>
 
     <template for="sample in data.samples">

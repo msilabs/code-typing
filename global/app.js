@@ -281,7 +281,7 @@
     let rows = hasData ? weakRows(S.lang) : sampleRows(S.lang);
     $('sampleNote').hidden = hasData;
     $('btnReset').hidden = !hasData;
-    $('btnDrill').disabled = !hasData || rows.length === 0;
+    $('btnDrill').hidden = !hasData || rows.length === 0;
     const ul = $('weakList');
     if (!rows.length) { ul.innerHTML = '<li><p class="empty" style="grid-column:1/-1">এখন পর্যন্ত কোনো চিহ্নে ভুল নেই। দারুণ!</p></li>'; return; }
     ul.innerHTML = rows.slice(0, 7).map(r => {
@@ -395,7 +395,7 @@
     }).join('');
     ul.querySelectorAll('[data-play]').forEach(b => b.addEventListener('click', () => {
       S.idx = +b.dataset.play; loadSnippet();
-      $('codebox').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+      $('lib').close();
       focusTyper();
     }));
     ul.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => {
@@ -445,11 +445,14 @@
     items.forEach((it, i) => MINE.push({ id: 'local-' + now + '-' + i, ...it }));
     const memOnly = !saveLocalMine();
     afterMineChange();
-    msg.className = 'msg ok';
-    msg.textContent = `${bn(items.length)}টা কোড ${LABEL[lang]}-এ যোগ হয়েছে।` + (memOnly ? ' এই ব্রাউজারে সংরক্ষণ বন্ধ বা জায়গা শেষ, তাই পেজ বন্ধ করলে এগুলো থাকবে না।' : '');
+    if (memOnly) {
+      msg.className = 'msg bad';
+      msg.textContent = `${bn(items.length)}টা কোড যোগ হয়েছে, কিন্তু এই ব্রাউজারে সংরক্ষণ বন্ধ বা জায়গা শেষ, তাই পেজ বন্ধ করলে থাকবে না।`;
+    }
     $('addText').value = ''; $('addName').value = '';
     if (lang !== S.lang) setLang(lang, (BUILTIN[lang] || []).length + already);
     else { S.idx = (BUILTIN[lang] || []).length + already; loadSnippet(); }
+    if (!memOnly) { $('lib').close(); focusTyper(); }
   }
 
   function deleteMine(id) {
@@ -500,12 +503,16 @@
   });
   $('btnNext').addEventListener('click', nextSnippet);
   $('btnRand').addEventListener('click', randSnippet);
+  $('btnRestart').addEventListener('click', restart);
   $('btnDrill').addEventListener('click', startDrill);
   $('btnAdd').addEventListener('click', () => {
     $('addLang').value = S.lang;
-    $('lib').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-    setTimeout(() => $('addText').focus({ preventScroll: true }), 350);
+    $('addMsg').textContent = '';
+    $('lib').showModal();
+    $('addText').focus();
   });
+  $('libClose').addEventListener('click', () => $('lib').close());
+  $('lib').addEventListener('click', e => { if (e.target === $('lib')) $('lib').close(); });
   $('addForm').addEventListener('submit', addMine);
   $('addText').addEventListener('keydown', e => {
     // কোডের ঘরে Tab চাপলে ৪টা স্পেস বসবে, ফোকাস সরবে না
