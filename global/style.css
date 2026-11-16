@@ -13,8 +13,8 @@
   --bad: #cf3f35;
   --bad-soft: #f6d9d6;
   --line: #cfd9dc;
-  --f-display: "Baloo Da 2", "Hind Siliguri", system-ui, sans-serif;
-  --f-body: "Hind Siliguri", "Noto Sans Bengali", system-ui, sans-serif;
+  --f-display: "Baloo Da 2", "Noto Sans Bengali", system-ui, sans-serif;
+  --f-body: "Noto Sans Bengali", system-ui, sans-serif;
   --page-max: 1180px;
   --f-code: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
