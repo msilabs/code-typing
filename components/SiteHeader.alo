@@ -158,8 +158,51 @@
     }
 
     @media (max-width: 640px) {
+        .inner {
+            gap: 8px;
+            min-height: 52px;
+        }
+
+        .brand {
+            gap: 8px;
+        }
+
+        .mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+        }
+
         .name {
-            font-size: 16px;
+            font-size: 14.5px;
+        }
+
+        .by {
+            font-size: 10.5px;
+        }
+
+        .actions {
+            gap: 6px;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+        }
+
+        .star {
+            height: 32px;
+            gap: 5px;
+            padding: 0 9px;
+            border-radius: 9px;
+            font-size: 13px;
+        }
+
+        .icon-btn svg,
+        .star svg {
+            width: 15px;
+            height: 15px;
         }
 
         .star .label {
