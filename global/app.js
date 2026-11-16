@@ -89,6 +89,7 @@
       if (lineStart && ch === ' ') indent[i] = true; else lineStart = false;
     }
     clearInterval(tick);
+    document.body.classList.remove('focus-mode');
     R = { text, file, tag, tokAt, toks, indent, pos: 0, keys: 0, good: 0, miss: 0, confuse: [], t0: 0, t1: 0, done: false, spans: [], lines: [] };
     activeLine = -1;
     render();
@@ -175,6 +176,7 @@
     if (ch === '\r') ch = '\n';
     if (ch === '\t') return;
     if (!R.t0) { R.t0 = performance.now(); startTick(); }
+    document.body.classList.add('focus-mode');
     const expect = R.text[R.pos];
     R.keys++;
     const tid = R.tokAt[R.pos];
@@ -212,6 +214,7 @@
 
   function finish() {
     R.done = true; R.t1 = performance.now(); clearInterval(tick);
+    document.body.classList.remove('focus-mode');
     R.spans.forEach(s => s.classList.remove('cur'));
     const ms = R.t1 - R.t0;
     const wpm = wpmOf(R.good, ms), acc = Math.round(R.good / R.keys * 100);
@@ -477,7 +480,7 @@
   }
 
   typer.addEventListener('focus', () => { hint.hidden = true; });
-  typer.addEventListener('blur', () => { setTimeout(() => { if (document.activeElement !== typer && resultEl.hidden) hint.hidden = false; }, 0); });
+  typer.addEventListener('blur', () => { document.body.classList.remove('focus-mode'); setTimeout(() => { if (document.activeElement !== typer && resultEl.hidden) hint.hidden = false; }, 0); });
   $('codebox').addEventListener('mousedown', e => { e.preventDefault(); focusTyper(); });
   $('codebox').addEventListener('touchend', () => focusTyper());
 
@@ -516,6 +519,9 @@
     if (this.dataset.armed) { delete store.stats[S.lang]; save(); renderWeak(); this.textContent = 'মুছুন'; delete this.dataset.armed; return; }
     this.dataset.armed = '1'; this.textContent = 'নিশ্চিত? আবার চাপুন';
     setTimeout(() => { delete this.dataset.armed; this.textContent = 'মুছুন'; }, 3000);
+  });
+  document.addEventListener('mousemove', e => {
+    if (Math.abs(e.movementX) + Math.abs(e.movementY) > 6) document.body.classList.remove('focus-mode');
   });
   document.addEventListener('keydown', e => {
     if (resultEl.hidden) return;
