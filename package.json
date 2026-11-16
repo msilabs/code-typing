@@ -1,0 +1,15 @@
+{
+    "name": "code-typing-practice",
+    "private": true,
+    "description": "১৪টা ভাষার আসল কোড টাইপ করার খেলা",
+    "engines": {
+        "node": ">=22"
+    },
+    "scripts": {
+        "dev": "alo dev",
+        "build": "alo build"
+    },
+    "devDependencies": {
+        "@msilabs/alo": "^1.1.0"
+    }
+}

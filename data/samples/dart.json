@@ -1,0 +1,45 @@
+{
+    "lang": "dart",
+    "files": [
+        {
+            "file": "user.dart",
+            "text": "class User {\n  final String name;\n  final int? age;\n\n  const User({required this.name, this.age});\n}"
+        },
+        {
+            "file": "post_repo.dart",
+            "text": "Future<List<Post>> fetchPosts() async {\n  final res = await http.get(Uri.parse('$baseUrl/posts'));\n  final data = jsonDecode(res.body) as List;\n  return data.map((e) => Post.fromJson(e)).toList();\n}"
+        },
+        {
+            "file": "post_list.dart",
+            "text": "@override\nWidget build(BuildContext context) {\n  return ListView.builder(\n    itemCount: items.length,\n    itemBuilder: (context, i) => Text(items[i].title),\n  );\n}"
+        },
+        {
+            "file": "scores.dart",
+            "text": "final scores = <String, int>{'rafi': 42, 'mitu': 37};\nscores.forEach((k, v) => print('$k: ${v * 2}'));\nfinal top = scores.entries.where((e) => e.value > 40).toList();"
+        },
+        {
+            "file": "painter.dart",
+            "text": "final paint = Paint()\n  ..color = Colors.teal\n  ..strokeWidth = 4.0\n  ..style = PaintingStyle.stroke;"
+        },
+        {
+            "file": "status.dart",
+            "text": "final label = switch (status) {\n  Status.active => 'Active',\n  Status.banned => 'Banned',\n};"
+        },
+        {
+            "file": "countdown.dart",
+            "text": "Stream<int> countdown(int from) async* {\n  for (var i = from; i >= 0; i--) {\n    yield i;\n  }\n}"
+        },
+        {
+            "file": "null_safety.dart",
+            "text": "final name = user?.profile?.name ?? 'guest';\nlate final String token;"
+        },
+        {
+            "file": "counter.dart",
+            "text": "class Counter extends ChangeNotifier {\n  int _count = 0;\n  int get count => _count;\n  void inc() { _count++; notifyListeners(); }\n}"
+        },
+        {
+            "file": "records.dart",
+            "text": "final list = [1, 2, 3, ...more, if (showZero) 0];\nfinal (x, y) = (10, 20);"
+        }
+    ]
+}

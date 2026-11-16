@@ -1,0 +1,45 @@
+{
+    "lang": "ts",
+    "files": [
+        {
+            "file": "user.ts",
+            "text": "interface User {\n  id: number;\n  name: string;\n  email?: string;\n  readonly roles: Role[];\n}"
+        },
+        {
+            "file": "result.ts",
+            "text": "type Result<T> = { ok: true; data: T } | { ok: false; error: string };"
+        },
+        {
+            "file": "first.ts",
+            "text": "function first<T>(arr: T[]): T | undefined {\n  return arr[0];\n}"
+        },
+        {
+            "file": "status.ts",
+            "text": "enum Status {\n  Active = 'ACTIVE',\n  Banned = 'BANNED',\n}"
+        },
+        {
+            "file": "http.ts",
+            "text": "async function getJson<T>(url: string): Promise<T> {\n  const res = await fetch(url);\n  return (await res.json()) as T;\n}"
+        },
+        {
+            "file": "repo.ts",
+            "text": "class Repo<T extends { id: number }> {\n  private items = new Map<number, T>();\n  save(item: T): void { this.items.set(item.id, item); }\n}"
+        },
+        {
+            "file": "types.ts",
+            "text": "type PartialUser = Partial<Pick<User, 'name' | 'email'>>;\ntype Keys = keyof typeof config;"
+        },
+        {
+            "file": "prices.ts",
+            "text": "const prices: Record<string, number> = { tea: 20, coffee: 80 };\nconst sum = Object.values(prices).reduce((a, b) => a + b, 0);"
+        },
+        {
+            "file": "narrow.ts",
+            "text": "function len(x: string | string[]): number {\n  if (typeof x === 'string') return x.length;\n  return x.reduce((n, s) => n + s.length, 0);\n}"
+        },
+        {
+            "file": "routes.ts",
+            "text": "export const routes = {\n  home: '/',\n  post: (id: number) => `/posts/${id}`,\n} as const satisfies Record<string, unknown>;"
+        }
+    ]
+}

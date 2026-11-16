@@ -1,0 +1,45 @@
+{
+    "lang": "swift",
+    "files": [
+        {
+            "file": "User.swift",
+            "text": "struct User: Codable {\n    let id: Int\n    var name: String\n    var email: String?\n}"
+        },
+        {
+            "file": "Greet.swift",
+            "text": "func greet(_ name: String, times: Int = 1) -> String {\n    return String(repeating: \"Hi \\(name) \", count: times)\n}"
+        },
+        {
+            "file": "Guard.swift",
+            "text": "guard let url = URL(string: urlString) else { return }\nif let name = user?.name { print(name) }"
+        },
+        {
+            "file": "Adults.swift",
+            "text": "let adults = people.filter { $0.age >= 18 }.map(\\.name)"
+        },
+        {
+            "file": "Direction.swift",
+            "text": "enum Direction: String, CaseIterable {\n    case north, south, east, west\n}"
+        },
+        {
+            "file": "Grade.swift",
+            "text": "switch score {\ncase 80...100: grade = \"A+\"\ncase 60..<80: grade = \"B\"\ndefault: grade = \"F\"\n}"
+        },
+        {
+            "file": "ViewModel.swift",
+            "text": "class ViewModel: ObservableObject {\n    @Published var items: [Item] = []\n}"
+        },
+        {
+            "file": "ContentView.swift",
+            "text": "struct ContentView: View {\n    @State private var count = 0\n    var body: some View {\n        Button(\"Tap \\(count)\") { count += 1 }\n    }\n}"
+        },
+        {
+            "file": "Load.swift",
+            "text": "func load() async throws -> [Post] {\n    let (data, _) = try await URLSession.shared.data(from: url)\n    return try JSONDecoder().decode([Post].self, from: data)\n}"
+        },
+        {
+            "file": "Total.swift",
+            "text": "extension Array where Element: Numeric {\n    var total: Element { reduce(0, +) }\n}"
+        }
+    ]
+}

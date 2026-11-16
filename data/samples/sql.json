@@ -1,0 +1,45 @@
+{
+    "lang": "sql",
+    "files": [
+        {
+            "file": "report.sql",
+            "text": "SELECT u.id, u.name, COUNT(o.id) AS orders\nFROM users u\nLEFT JOIN orders o ON o.user_id = u.id\nWHERE u.created_at >= '2026-01-01'\nGROUP BY u.id, u.name\nHAVING COUNT(o.id) > 3;"
+        },
+        {
+            "file": "schema.sql",
+            "text": "CREATE TABLE products (\n  id INT PRIMARY KEY AUTO_INCREMENT,\n  name VARCHAR(120) NOT NULL,\n  price DECIMAL(10, 2) DEFAULT 0.00\n);"
+        },
+        {
+            "file": "transfer.sql",
+            "text": "UPDATE accounts\nSET balance = balance - 500\nWHERE id = 7 AND balance >= 500;"
+        },
+        {
+            "file": "top_products.sql",
+            "text": "SELECT name, price\nFROM products\nWHERE category_id IN (SELECT id FROM categories WHERE slug <> 'archive')\nORDER BY price DESC\nLIMIT 10;"
+        },
+        {
+            "file": "logs.sql",
+            "text": "INSERT INTO logs (user_id, action, meta)\nVALUES (12, 'login', '{\"ip\": \"10.0.0.4\"}'),\n       (15, 'logout', NULL);"
+        },
+        {
+            "file": "cleanup.sql",
+            "text": "DELETE FROM sessions\nWHERE expires_at < NOW() - INTERVAL 7 DAY;"
+        },
+        {
+            "file": "salary.sql",
+            "text": "SELECT d.name, AVG(e.salary) AS avg_salary\nFROM employees e\nINNER JOIN departments d ON d.id = e.dept_id\nGROUP BY d.name\nORDER BY avg_salary DESC;"
+        },
+        {
+            "file": "latest.sql",
+            "text": "WITH ranked AS (\n  SELECT *, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at DESC) AS rn\n  FROM orders\n)\nSELECT * FROM ranked WHERE rn = 1;"
+        },
+        {
+            "file": "index.sql",
+            "text": "CREATE INDEX idx_users_email ON users (email);\nALTER TABLE users ADD COLUMN phone VARCHAR(20) NULL;"
+        },
+        {
+            "file": "stock.sql",
+            "text": "SELECT name,\n       CASE WHEN stock = 0 THEN 'out' WHEN stock < 10 THEN 'low' ELSE 'ok' END AS level\nFROM products\nWHERE name LIKE '%phone%';"
+        }
+    ]
+}

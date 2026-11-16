@@ -1,0 +1,45 @@
+{
+    "lang": "cpp",
+    "files": [
+        {
+            "file": "main.cpp",
+            "text": "#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> v{1, 2, 3};\n    for (const auto& x : v) std::cout << x << '\\n';\n}"
+        },
+        {
+            "file": "find.cpp",
+            "text": "auto it = std::find_if(v.begin(), v.end(), [](int x) { return x > 10; });\nif (it != v.end()) std::cout << *it;"
+        },
+        {
+            "file": "shape.hpp",
+            "text": "class Shape {\npublic:\n    virtual ~Shape() = default;\n    virtual double area() const = 0;\n};"
+        },
+        {
+            "file": "max.hpp",
+            "text": "template <typename T>\nT maxOf(const std::vector<T>& v) {\n    return *std::max_element(v.begin(), v.end());\n}"
+        },
+        {
+            "file": "ages.cpp",
+            "text": "std::map<std::string, int> ages{{\"rafi\", 21}, {\"mitu\", 19}};\nfor (auto& [name, age] : ages) std::cout << name << \": \" << age << \"\\n\";"
+        },
+        {
+            "file": "ptr.cpp",
+            "text": "auto w = std::make_unique<Widget>(42);\nstd::shared_ptr<Node> root = std::make_shared<Node>();"
+        },
+        {
+            "file": "geo.hpp",
+            "text": "namespace geo {\nstruct Point { double x, y; };\nPoint operator+(Point a, Point b) { return {a.x + b.x, a.y + b.y}; }\n}"
+        },
+        {
+            "file": "sort.cpp",
+            "text": "std::sort(people.begin(), people.end(),\n          [](const Person& a, const Person& b) { return a.age < b.age; });"
+        },
+        {
+            "file": "split.cpp",
+            "text": "std::stringstream ss(\"a,b,c\");\nfor (std::string tok; std::getline(ss, tok, ',');) parts.push_back(tok);"
+        },
+        {
+            "file": "cp.cpp",
+            "text": "constexpr int N = 1e5 + 5;\nint dp[N];\nios::sync_with_stdio(false);\ncin.tie(nullptr);"
+        }
+    ]
+}

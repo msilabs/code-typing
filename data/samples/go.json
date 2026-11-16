@@ -1,0 +1,45 @@
+{
+    "lang": "go",
+    "files": [
+        {
+            "file": "main.go",
+            "text": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, Go\")\n}"
+        },
+        {
+            "file": "divide.go",
+            "text": "func divide(a, b float64) (float64, error) {\n    if b == 0 {\n        return 0, errors.New(\"divide by zero\")\n    }\n    return a / b, nil\n}"
+        },
+        {
+            "file": "user.go",
+            "text": "type User struct {\n    ID int `json:\"id\"`\n    Name string `json:\"name\"`\n}"
+        },
+        {
+            "file": "evens.go",
+            "text": "for i, v := range nums {\n    if v%2 == 0 {\n        evens = append(evens, i)\n    }\n}"
+        },
+        {
+            "file": "chan.go",
+            "text": "ch := make(chan int, 10)\ngo func() {\n    defer close(ch)\n    for i := 0; i < 5; i++ { ch <- i }\n}()"
+        },
+        {
+            "file": "stack.go",
+            "text": "func (s *Stack) Push(v int) { s.items = append(s.items, v) }\nfunc (s *Stack) Len() int { return len(s.items) }"
+        },
+        {
+            "file": "server.go",
+            "text": "http.HandleFunc(\"/ping\", func(w http.ResponseWriter, r *http.Request) {\n    w.WriteHeader(http.StatusOK)\n    fmt.Fprintf(w, \"pong %s\", r.URL.Path)\n})"
+        },
+        {
+            "file": "db.go",
+            "text": "if err := db.Ping(); err != nil {\n    log.Fatalf(\"db: %v\", err)\n}"
+        },
+        {
+            "file": "words.go",
+            "text": "counts := map[string]int{}\nfor _, w := range strings.Fields(text) {\n    counts[strings.ToLower(w)]++\n}"
+        },
+        {
+            "file": "shape.go",
+            "text": "type Shape interface {\n    Area() float64\n}\nvar _ Shape = (*Circle)(nil)"
+        }
+    ]
+}

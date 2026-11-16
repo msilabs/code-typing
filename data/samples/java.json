@@ -1,0 +1,45 @@
+{
+    "lang": "java",
+    "files": [
+        {
+            "file": "Main.java",
+            "text": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, \" + args[0]);\n    }\n}"
+        },
+        {
+            "file": "Adults.java",
+            "text": "List<String> names = users.stream()\n    .filter(u -> u.getAge() >= 18)\n    .map(User::getName)\n    .collect(Collectors.toList());"
+        },
+        {
+            "file": "WordCount.java",
+            "text": "Map<String, Integer> counts = new HashMap<>();\nfor (String w : words) {\n    counts.merge(w, 1, Integer::sum);\n}"
+        },
+        {
+            "file": "Point.java",
+            "text": "public record Point(int x, int y) {\n    public double dist() { return Math.sqrt(x * x + y * y); }\n}"
+        },
+        {
+            "file": "Lines.java",
+            "text": "try (var reader = new BufferedReader(new FileReader(path))) {\n    return reader.lines().count();\n} catch (IOException e) {\n    throw new UncheckedIOException(e);\n}"
+        },
+        {
+            "file": "User.java",
+            "text": "@Override\npublic boolean equals(Object o) {\n    if (this == o) return true;\n    if (!(o instanceof User other)) return false;\n    return id == other.id;\n}"
+        },
+        {
+            "file": "UserController.java",
+            "text": "@RestController\n@RequestMapping(\"/api/users\")\npublic class UserController {\n    @GetMapping(\"/{id}\")\n    public User get(@PathVariable Long id) { return service.find(id); }\n}"
+        },
+        {
+            "file": "Lookup.java",
+            "text": "Optional<User> user = repo.findById(id);\nString name = user.map(User::getName).orElse(\"guest\");"
+        },
+        {
+            "file": "Day.java",
+            "text": "switch (day) {\n    case MONDAY, FRIDAY -> System.out.println(\"work\");\n    case SUNDAY -> System.out.println(\"rest\");\n    default -> {}\n}"
+        },
+        {
+            "file": "Bubble.java",
+            "text": "for (int i = 0; i < arr.length - 1; i++) {\n    if (arr[i] > arr[i + 1]) {\n        int tmp = arr[i]; arr[i] = arr[i + 1]; arr[i + 1] = tmp;\n    }\n}"
+        }
+    ]
+}

@@ -1,0 +1,124 @@
+<template>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1>চিহ্ন টাইপিং <span class="glyphs">{} =&gt; :: $this</span></h1>
+      <p>সাধারণ লেখা নয়, আসল কোড টাইপ করুন। ১৪টা ভাষা, প্রতিটায় ১০টা কোড, আর যত খুশি নিজের কোড। কোন চিহ্নে আঙুল আটকে যায়, খেলা নিজেই খুঁজে বের করবে।</p>
+    </div>
+  </header>
+
+  <nav class="langbar" id="langbar" aria-label="ভাষা বাছাই"></nav>
+
+  <div class="main">
+    <section class="editor" aria-label="টাইপ করার কোড">
+      <div class="tabbar">
+        <div class="pick">
+          <select id="snipSel" aria-label="কোড বাছাই"></select>
+          <span class="tag" id="snipTag"></span>
+        </div>
+        <div class="tools">
+          <button class="btn small" id="btnAdd" title="নিজের কোড যোগ করুন">+ নিজের কোড</button>
+          <button class="btn small" id="btnDrill" title="আপনার সবচেয়ে বেশি ভুল হওয়া চিহ্নগুলো আছে এমন লাইন দিয়ে অনুশীলন">দুর্বল চিহ্ন অনুশীলন</button>
+          <button class="btn small" id="btnRand" title="এলোমেলো একটা কোড">এলোমেলো</button>
+          <button class="btn small" id="btnNext">পরের কোড →</button>
+        </div>
+      </div>
+      <div class="progress"><i id="prog"></i></div>
+      <div class="codebox" id="codebox">
+        <textarea id="typer" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="এখানে টাইপ করুন"></textarea>
+        <div class="code" id="code"></div>
+        <div class="focus-hint" id="focusHint"><span>টাইপ শুরু করতে এখানে ক্লিক করুন</span></div>
+      </div>
+      <div class="statusbar">
+        <span><kbd>Enter</kbd> নতুন লাইন, ইনডেন্ট নিজে থেকে বসে যায়</span>
+        <span><kbd>Esc</kbd> আবার শুরু</span>
+        <span>ভুল চাপলে কার্সর আটকে থাকবে, ঠিকটা চাপুন</span>
+      </div>
+      <div class="result" id="result" hidden></div>
+    </section>
+
+    <aside>
+      <div class="panel">
+        <h3>এই রাউন্ড</h3>
+        <div class="live">
+          <div><b id="sWpm">০</b><small>শব্দ/মিনিট</small></div>
+          <div class="acc" id="accBox"><b id="sAcc">১০০%</b><small>নির্ভুলতা</small></div>
+          <div><b id="sTime">০:০০</b><small>সময়</small></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>এখন যা চাপবেন</h3>
+        <div class="next">
+          <div class="glyph" id="nGlyph">&lt;?php</div>
+          <div>
+            <div class="name" id="nName">PHP ওপেনিং ট্যাগ</div>
+            <div class="keys" id="nKeys"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3><span>দুর্বল চিহ্ন · <span id="weakLang">PHP</span></span><button class="btn small" id="btnReset" hidden>মুছুন</button></h3>
+        <ul class="weak" id="weakList"></ul>
+        <p class="sample-note" id="sampleNote" hidden>এগুলো নমুনা। একটা কোড শেষ করলেই এখানে আপনার নিজের হিসাব দেখাবে।</p>
+      </div>
+
+      <div class="panel">
+        <h3>সাম্প্রতিক গতি</h3>
+        <div id="histBox"></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="lib" id="lib" aria-labelledby="libTitle">
+    <div class="lib-head">
+      <h2 id="libTitle">আমার কোড</h2>
+      <p>নিজের প্রজেক্টের কোড পেস্ট করুন, সেটাই টাইপ করার তালিকায় চলে আসবে। একসাথে অনেকগুলো যোগ করতে চাইলে প্রতিটা কোডের মাঝে আলাদা লাইনে শুধু <code>---</code> লিখুন।</p>
+    </div>
+    <div class="lib-grid">
+      <form class="add" id="addForm" novalidate>
+        <div class="row2">
+          <div class="field">
+            <label for="addName">নাম (ফাঁকা রাখলে নিজে থেকে বসবে)</label>
+            <input id="addName" type="text" maxlength="60" placeholder="যেমন: PaymentService.php" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="addLang">ভাষা</label>
+            <select id="addLang"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="addText">কোড</label>
+          <textarea id="addText" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="public function store(Request $request)
+{
+    $data = $request->validate(['title' => 'required']);
+    return Post::create($data);
+}
+---
+Route::post('/posts', [PostController::class, 'store']);"></textarea>
+        </div>
+        <div class="formfoot">
+          <button class="btn primary" type="submit" id="addBtn">যোগ করুন</button>
+          <span class="msg" id="addMsg" role="status"></span>
+        </div>
+        <p class="hintline">ট্যাব নিজে থেকে ৪টা স্পেস হয়ে যায়, লাইনের শেষের ফাঁকা জায়গা বাদ পড়ে। একটা কোডে সর্বোচ্চ ৪০ লাইন।</p>
+      </form>
+      <div>
+        <div class="mine-head">
+          <h3 id="mineTitle">PHP-এ আমার কোড</h3>
+          <span id="mineCount"></span>
+        </div>
+        <ul class="mine" id="mineList"></ul>
+      </div>
+    </div>
+    <p class="store-note" id="storeNote">সংরক্ষণের জায়গা খোঁজা হচ্ছে…</p>
+  </section>
+</div>
+
+    <template for="sample in data.samples">
+        <template for="f in sample.files">
+            <pre class="lib-src" data-lang="{{ sample.lang }}" data-file="{{ f.file }}" hidden>{{ f.text }}</pre>
+        </template>
+    </template>
+</template>

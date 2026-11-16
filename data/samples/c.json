@@ -1,0 +1,45 @@
+{
+    "lang": "c",
+    "files": [
+        {
+            "file": "hello.c",
+            "text": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, %s!\\n\", \"world\");\n    return 0;\n}"
+        },
+        {
+            "file": "sum.c",
+            "text": "int sum(const int *arr, size_t n) {\n    int s = 0;\n    for (size_t i = 0; i < n; i++) s += arr[i];\n    return s;\n}"
+        },
+        {
+            "file": "person.h",
+            "text": "typedef struct {\n    char name[32];\n    int age;\n} Person;"
+        },
+        {
+            "file": "alloc.c",
+            "text": "Person *p = malloc(sizeof(Person));\nif (p == NULL) return -1;\np->age = 21;\nfree(p);"
+        },
+        {
+            "file": "swap.c",
+            "text": "void swap(int *a, int *b) {\n    int t = *a;\n    *a = *b;\n    *b = t;\n}"
+        },
+        {
+            "file": "macros.h",
+            "text": "#define MAX(a, b) ((a) > (b) ? (a) : (b))\n#define LEN(x) (sizeof(x) / sizeof((x)[0]))"
+        },
+        {
+            "file": "log.c",
+            "text": "FILE *fp = fopen(\"log.txt\", \"a\");\nif (!fp) { perror(\"fopen\"); return 1; }\nfprintf(fp, \"%d items\\n\", count);\nfclose(fp);"
+        },
+        {
+            "file": "lines.c",
+            "text": "while ((c = getchar()) != EOF) {\n    if (c == '\\n') lines++;\n}"
+        },
+        {
+            "file": "flags.c",
+            "text": "unsigned int flags = 0;\nflags |= 1u << 3;\nif (flags & (1u << 3)) puts(\"bit 3 on\");"
+        },
+        {
+            "file": "list.c",
+            "text": "struct node {\n    int val;\n    struct node *next;\n};\nfor (struct node *n = head; n != NULL; n = n->next) printf(\"%d \", n->val);"
+        }
+    ]
+}

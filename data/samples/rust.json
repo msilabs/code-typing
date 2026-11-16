@@ -1,0 +1,45 @@
+{
+    "lang": "rust",
+    "files": [
+        {
+            "file": "main.rs",
+            "text": "fn main() {\n    let name = String::from(\"Rust\");\n    println!(\"Hello, {}!\", name);\n}"
+        },
+        {
+            "file": "divide.rs",
+            "text": "fn divide(a: f64, b: f64) -> Result<f64, String> {\n    if b == 0.0 { return Err(\"divide by zero\".into()); }\n    Ok(a / b)\n}"
+        },
+        {
+            "file": "user.rs",
+            "text": "#[derive(Debug, Clone, PartialEq)]\nstruct User {\n    id: u32,\n    name: String,\n}"
+        },
+        {
+            "file": "evens.rs",
+            "text": "let evens: Vec<i32> = nums.iter().filter(|&&x| x % 2 == 0).cloned().collect();"
+        },
+        {
+            "file": "cmd.rs",
+            "text": "match cmd.as_str() {\n    \"start\" | \"run\" => start(),\n    s if s.starts_with('-') => flag(s),\n    _ => println!(\"unknown\"),\n}"
+        },
+        {
+            "file": "stack.rs",
+            "text": "impl Stack {\n    fn push(&mut self, v: i32) { self.items.push(v); }\n    fn pop(&mut self) -> Option<i32> { self.items.pop() }\n}"
+        },
+        {
+            "file": "read.rs",
+            "text": "let text = std::fs::read_to_string(\"in.txt\")?;\nlet n: usize = text.trim().parse().unwrap_or(0);"
+        },
+        {
+            "file": "lines.rs",
+            "text": "for (i, line) in text.lines().enumerate() {\n    if let Some(rest) = line.strip_prefix(\"#\") {\n        println!(\"{i}: {rest}\");\n    }\n}"
+        },
+        {
+            "file": "longest.rs",
+            "text": "fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {\n    if x.len() > y.len() { x } else { y }\n}"
+        },
+        {
+            "file": "count.rs",
+            "text": "let mut map: HashMap<&str, i32> = HashMap::new();\n*map.entry(\"rafi\").or_insert(0) += 1;\nfor i in 0..=10 { total += i; }"
+        }
+    ]
+}

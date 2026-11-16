@@ -1,0 +1,45 @@
+{
+    "lang": "kotlin",
+    "files": [
+        {
+            "file": "User.kt",
+            "text": "data class User(val id: Int, val name: String, val email: String? = null)"
+        },
+        {
+            "file": "Greet.kt",
+            "text": "fun greet(name: String = \"world\"): String = \"Hello, $name!\"\nval adults = people.filter { it.age >= 18 }.map { it.name }"
+        },
+        {
+            "file": "Safe.kt",
+            "text": "val len = text?.length ?: 0\nval sure = maybe!!.trim()"
+        },
+        {
+            "file": "Status.kt",
+            "text": "when (status) {\n    \"paid\" -> ship(order)\n    \"pending\", \"draft\" -> remind(order)\n    else -> throw IllegalStateException(\"bad: $status\")\n}"
+        },
+        {
+            "file": "Repo.kt",
+            "text": "class Repo(private val api: Api) {\n    suspend fun load(id: Int): User = withContext(Dispatchers.IO) {\n        api.getUser(id)\n    }\n}"
+        },
+        {
+            "file": "Loop.kt",
+            "text": "for (i in 1..10 step 2) println(\"i = ${i * i}\")"
+        },
+        {
+            "file": "Map.kt",
+            "text": "val map = mutableMapOf(\"a\" to 1, \"b\" to 2)\nmap[\"c\"] = map.getOrDefault(\"c\", 0) + 3"
+        },
+        {
+            "file": "Config.kt",
+            "text": "object Config {\n    const val BASE_URL = \"https://api.example.com\"\n}"
+        },
+        {
+            "file": "Greeting.kt",
+            "text": "@Composable\nfun Greeting(name: String, modifier: Modifier = Modifier) {\n    Text(text = \"Hi $name\", modifier = modifier.padding(16.dp))\n}"
+        },
+        {
+            "file": "Sealed.kt",
+            "text": "sealed interface UiState {\n    object Loading : UiState\n    data class Ready(val items: List<Item>) : UiState\n}"
+        }
+    ]
+}

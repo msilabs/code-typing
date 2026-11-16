@@ -1,0 +1,45 @@
+{
+    "lang": "cs",
+    "files": [
+        {
+            "file": "User.cs",
+            "text": "public class User\n{\n    public int Id { get; set; }\n    public string Name { get; init; } = \"\";\n}"
+        },
+        {
+            "file": "Adults.cs",
+            "text": "var adults = people.Where(p => p.Age >= 18).Select(p => p.Name).ToList();"
+        },
+        {
+            "file": "UserService.cs",
+            "text": "public async Task<User?> GetAsync(int id)\n{\n    return await _db.Users.FirstOrDefaultAsync(u => u.Id == id);\n}"
+        },
+        {
+            "file": "Grade.cs",
+            "text": "string label = score switch\n{\n    >= 80 => \"A+\",\n    >= 60 => \"B\",\n    _ => \"F\",\n};"
+        },
+        {
+            "file": "Greet.cs",
+            "text": "var name = user?.Profile?.Name ?? \"guest\";\nConsole.WriteLine($\"Hi {name}, you have {count} messages\");"
+        },
+        {
+            "file": "ItemsController.cs",
+            "text": "[HttpGet(\"{id:int}\")]\npublic IActionResult Get(int id) => Ok(_service.Find(id));"
+        },
+        {
+            "file": "ReadFile.cs",
+            "text": "using var stream = File.OpenRead(path);\nusing var reader = new StreamReader(stream);\nvar text = await reader.ReadToEndAsync();"
+        },
+        {
+            "file": "Point.cs",
+            "text": "public record Point(int X, int Y);\nvar p2 = p1 with { Y = 10 };"
+        },
+        {
+            "file": "Dict.cs",
+            "text": "var dict = new Dictionary<string, List<int>>();\nif (!dict.TryGetValue(key, out var list)) dict[key] = list = new();\nlist.Add(42);"
+        },
+        {
+            "file": "Events.cs",
+            "text": "public event EventHandler<string>? Changed;\nprotected void OnChanged(string v) => Changed?.Invoke(this, v);"
+        }
+    ]
+}

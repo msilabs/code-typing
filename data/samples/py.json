@@ -1,0 +1,45 @@
+{
+    "lang": "py",
+    "files": [
+        {
+            "file": "greet.py",
+            "text": "def greet(name: str, times: int = 1) -> str:\n    return \", \".join([f\"Hello {name}\"] * times)"
+        },
+        {
+            "file": "squares.py",
+            "text": "squares = {n: n ** 2 for n in range(10) if n % 2 == 0}\nevens = [x // 2 for x in squares.values()]"
+        },
+        {
+            "file": "point.py",
+            "text": "class Point:\n    def __init__(self, x: float, y: float) -> None:\n        self.x, self.y = x, y\n\n    def __repr__(self) -> str:\n        return f\"Point({self.x}, {self.y})\""
+        },
+        {
+            "file": "read_csv.py",
+            "text": "with open(\"data.csv\", encoding=\"utf-8\") as f:\n    rows = [line.strip().split(\",\") for line in f]"
+        },
+        {
+            "file": "parse.py",
+            "text": "try:\n    value = int(raw)\nexcept (ValueError, TypeError) as e:\n    print(f\"bad input: {e!r}\")\n    value = 0"
+        },
+        {
+            "file": "order.py",
+            "text": "@dataclass(frozen=True)\nclass Order:\n    id: int\n    items: list[str] = field(default_factory=list)"
+        },
+        {
+            "file": "decorator.py",
+            "text": "def log_call(fn):\n    def wrapper(*args, **kwargs):\n        print(f\"-> {fn.__name__}{args}\")\n        return fn(*args, **kwargs)\n    return wrapper"
+        },
+        {
+            "file": "fetch.py",
+            "text": "async def fetch_all(urls: list[str]) -> list[dict]:\n    async with aiohttp.ClientSession() as s:\n        return await asyncio.gather(*(get(s, u) for u in urls))"
+        },
+        {
+            "file": "top.py",
+            "text": "if (n := len(items)) > 10:\n    print(f\"too many: {n}\")\ntop = sorted(users, key=lambda u: u[\"score\"], reverse=True)[:3]"
+        },
+        {
+            "file": "main.py",
+            "text": "@app.get(\"/items/{item_id}\")\ndef read_item(item_id: int, q: str | None = None):\n    return {\"item_id\": item_id, \"q\": q}"
+        }
+    ]
+}

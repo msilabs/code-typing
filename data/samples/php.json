@@ -1,0 +1,45 @@
+{
+    "lang": "php",
+    "files": [
+        {
+            "file": "UserController.php",
+            "text": "<?php\nclass UserController\n{\n    public function show(int $id): array\n    {\n        $user = $this->repo->find($id);\n        return ['name' => $user->name, 'id' => $id];\n    }\n}"
+        },
+        {
+            "file": "routes/web.php",
+            "text": "Route::get('/posts/{id}', [PostController::class, 'show'])\n    ->middleware('auth')\n    ->name('posts.show');"
+        },
+        {
+            "file": "Config.php",
+            "text": "class Config\n{\n    private static ?Config $instance = null;\n\n    public static function get(): self\n    {\n        return self::$instance ??= new self();\n    }\n}"
+        },
+        {
+            "file": "OrderService.php",
+            "text": "foreach ($orders as $key => $order) {\n    if ($order->status !== 'paid') {\n        continue;\n    }\n    $this->notify($order->user?->email);\n}"
+        },
+        {
+            "file": "cart.php",
+            "text": "$prices = array_map(fn($p) => $p * 1.15, $items);\n$total = array_sum($prices) ?? 0;\necho \"Total: {$total}\";"
+        },
+        {
+            "file": "status.php",
+            "text": "$label = match ($status) {\n    'paid' => 'Paid',\n    'pending', 'draft' => 'Waiting',\n    default => 'Unknown',\n};"
+        },
+        {
+            "file": "UserQuery.php",
+            "text": "$users = User::where('active', true)\n    ->orderBy('created_at', 'desc')\n    ->take(10)\n    ->get();"
+        },
+        {
+            "file": "Money.php",
+            "text": "final class Money\n{\n    public function __construct(\n        private readonly int $amount,\n        private readonly string $currency = 'BDT',\n    ) {}\n}"
+        },
+        {
+            "file": "db.php",
+            "text": "try {\n    $pdo = new PDO($dsn, $user, $pass);\n} catch (PDOException $e) {\n    error_log($e->getMessage());\n    exit(1);\n}"
+        },
+        {
+            "file": "people.php",
+            "text": "$adults = array_filter($people, fn(array $p): bool => $p['age'] >= 18);\n$names = implode(', ', array_column($adults, 'name'));"
+        }
+    ]
+}

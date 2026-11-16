@@ -1,0 +1,45 @@
+{
+    "lang": "js",
+    "files": [
+        {
+            "file": "cart.js",
+            "text": "const total = cart.items\n  .filter((item) => item.qty > 0)\n  .reduce((sum, item) => sum + item.price * item.qty, 0);"
+        },
+        {
+            "file": "api.js",
+            "text": "async function loadUser(id) {\n  const res = await fetch(`/api/users/${id}`);\n  if (!res.ok) throw new Error(`HTTP ${res.status}`);\n  return res.json();\n}"
+        },
+        {
+            "file": "destructure.js",
+            "text": "const { name, age = 18, ...rest } = user;\nconst tags = [...new Set(posts.flatMap((p) => p.tags))];\nconst city = user?.address?.city ?? 'Dhaka';"
+        },
+        {
+            "file": "events.js",
+            "text": "document.querySelector('#save').addEventListener('click', (e) => {\n  e.preventDefault();\n  state.count = (state.count ?? 0) + 1;\n});"
+        },
+        {
+            "file": "Stack.js",
+            "text": "class Stack {\n  #items = [];\n  push(x) { this.#items.push(x); return this; }\n  get size() { return this.#items.length; }\n}"
+        },
+        {
+            "file": "dashboard.js",
+            "text": "const [user, posts] = await Promise.all([\n  getUser(id),\n  getPosts({ userId: id, limit: 20 }),\n]);"
+        },
+        {
+            "file": "group.js",
+            "text": "const byCat = items.reduce((acc, it) => {\n  (acc[it.cat] ||= []).push(it);\n  return acc;\n}, {});"
+        },
+        {
+            "file": "debounce.js",
+            "text": "export default function debounce(fn, ms = 300) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}"
+        },
+        {
+            "file": "validate.js",
+            "text": "const isEmail = (s) => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s);\nconst msg = isEmail(input) ? 'OK' : `Invalid: ${input}`;"
+        },
+        {
+            "file": "List.jsx",
+            "text": "const List = ({ items }) => (\n  <ul>\n    {items.map((x) => <li key={x.id}>{x.label}</li>)}\n  </ul>\n);"
+        }
+    ]
+}
