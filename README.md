@@ -20,10 +20,13 @@ GitHub Pages-এর মতো সাব-পাথের জন্য: `node alo 
 ## ফাইল কোথায়
 
 ```
-pages/page.alo        পেজের HTML
-global/style.css      সব CSS
-global/app.js         খেলার JS
-data/samples/*.json   প্রতিটা ভাষার তৈরি করা কোড (ভাষা প্রতি ১০টা)
+pages/page.alo             পেজের HTML
+pages/layout.alo           head, ফন্ট, হেডার আর ফুটার
+components/SiteHeader.alo  GitHub স্টার বাটন আর থিম বদলের বাটনসহ হেডার
+components/SiteFooter.alo  ফুটার
+global/style.css           সব CSS
+global/app.js              খেলার JS
+data/samples/*.json        প্রতিটা ভাষার তৈরি করা কোড (ভাষা প্রতি ১০টা)
 ```
 
 নতুন নমুনা কোড যোগ করতে ভাষার JSON ফাইলের `files`-এ `{ "file": "নাম", "text": "কোড" }` বসান।
