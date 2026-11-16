@@ -112,7 +112,7 @@ Route::post('/posts', [PostController::class, 'store']);"></textarea>
         <ul class="mine" id="mineList"></ul>
       </div>
     </div>
-    <p class="store-note" id="storeNote">সংরক্ষণের জায়গা খোঁজা হচ্ছে…</p>
+    <p class="store-note" id="storeNote">নিজের কোড শুধু এই ব্রাউজারে জমা থাকে। ব্রাউজারের ডেটা মুছলে এগুলোও মুছে যাবে।</p>
   </section>
 </div>
 

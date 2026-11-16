@@ -49,7 +49,6 @@
 
   // ---- আমার কোড: অ্যাকাউন্টে (db) অথবা এই ব্রাউজারে ----
   let MINE = [];          // {id, lang, name, text, at}
-  let mineCol = null;     // db collection, পাওয়া গেলে
   const loadLocalMine = () => { try { return JSON.parse(localStorage.getItem(MINE_KEY) || '[]'); } catch (e) { return []; } };
   const saveLocalMine = () => { try { localStorage.setItem(MINE_KEY, JSON.stringify(MINE)); return true; } catch (e) { return false; } };
   MINE = loadLocalMine();
@@ -440,46 +439,22 @@
       lang, text: text.slice(0, 6000), at: now + i,
       name: baseName ? (pieces.length > 1 ? `${baseName} (${i + 1})` : baseName) : guessName(text, lang, already + i + 1)
     }));
-    $('addBtn').disabled = true;
-    try {
-      if (mineCol) {
-        await Promise.all(items.map(async it => {
-          const ref = mineCol.doc();
-          await ref.set(it);
-          if (!MINE.some(m => m.id === ref.id)) MINE.push({ id: ref.id, ...it });
-        }));
-        afterMineChange();
-      } else {
-        items.forEach((it, i) => MINE.push({ id: 'local-' + now + '-' + i, ...it }));
-        var memOnly = !saveLocalMine();
-        afterMineChange();
-      }
-      msg.className = 'msg ok';
-      msg.textContent = `${bn(items.length)}টা কোড ${LABEL[lang]}-এ যোগ হয়েছে।` + (memOnly ? ' এই ব্রাউজারে সংরক্ষণ বন্ধ, তাই পেজ বন্ধ করলে এগুলো থাকবে না।' : '');
-      $('addText').value = ''; $('addName').value = '';
-      if (lang !== S.lang) setLang(lang, (BUILTIN[lang] || []).length + already);
-      else { S.idx = (BUILTIN[lang] || []).length + already; loadSnippet(); }
-    } catch (err) {
-      msg.className = 'msg bad';
-      msg.textContent = err && err.code === 'quota_exceeded'
-        ? 'জায়গা শেষ। পুরোনো কিছু কোড মুছে আবার চেষ্টা করুন।'
-        : 'সংরক্ষণ হলো না। একটু পরে আবার চেষ্টা করুন।';
-    } finally {
-      $('addBtn').disabled = false;
-    }
+    items.forEach((it, i) => MINE.push({ id: 'local-' + now + '-' + i, ...it }));
+    const memOnly = !saveLocalMine();
+    afterMineChange();
+    msg.className = 'msg ok';
+    msg.textContent = `${bn(items.length)}টা কোড ${LABEL[lang]}-এ যোগ হয়েছে।` + (memOnly ? ' এই ব্রাউজারে সংরক্ষণ বন্ধ বা জায়গা শেষ, তাই পেজ বন্ধ করলে এগুলো থাকবে না।' : '');
+    $('addText').value = ''; $('addName').value = '';
+    if (lang !== S.lang) setLang(lang, (BUILTIN[lang] || []).length + already);
+    else { S.idx = (BUILTIN[lang] || []).length + already; loadSnippet(); }
   }
 
-  async function deleteMine(id) {
+  function deleteMine(id) {
     const cur = listFor(S.lang)[S.idx];
-    try {
-      if (mineCol) await mineCol.doc(id).delete();
-      MINE = MINE.filter(m => m.id !== id);
-      if (!mineCol) saveLocalMine();
-      afterMineChange();
-      if (cur && cur.id === id) { S.idx = 0; loadSnippet(); }
-    } catch (e) {
-      $('addMsg').className = 'msg bad'; $('addMsg').textContent = 'মোছা গেল না। আবার চেষ্টা করুন।';
-    }
+    MINE = MINE.filter(m => m.id !== id);
+    saveLocalMine();
+    afterMineChange();
+    if (cur && cur.id === id) { S.idx = 0; loadSnippet(); }
   }
 
   function afterMineChange() {
@@ -493,36 +468,6 @@
     renderMine();
   }
 
-  async function connectStore() {
-    const note = $('storeNote');
-    const localOnly = () => { note.textContent = 'নিজের কোড শুধু এই ব্রাউজারে জমা থাকে। ব্রাউজারের ডেটা মুছলে এগুলোও মুছে যাবে।'; };
-    try {
-      const use = window.claude?.use;
-      if (!use) { localOnly(); return; }
-      const [user, db] = await Promise.all([use('user'), use('db')]);
-      const uid = user ? await user.id() : null;
-      if (!db || !uid) { localOnly(); return; }
-      const col = db.doc('data/users/' + uid + '/lib').collection('snips');
-      let first = true;
-      const timer = setTimeout(() => { if (first) localOnly(); }, 10000);
-      col.onSnapshot(snap => {
-        clearTimeout(timer);
-        const remote = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-          .filter(m => m.lang && typeof m.text === 'string');
-        if (first) {
-          first = false;
-          mineCol = col;
-          // আগে এই ব্রাউজারে রাখা কোড থাকলে অ্যাকাউন্টে তুলে দেওয়া
-          const local = loadLocalMine().filter(l => !remote.some(r => r.text === l.text && r.lang === l.lang));
-          local.forEach(({ id, ...rest }) => col.add(rest).catch(() => {}));
-          try { localStorage.removeItem(MINE_KEY); } catch (e) {}
-          note.textContent = 'নিজের কোড আপনার অ্যাকাউন্টে জমা থাকে, শুধু আপনি দেখতে পান। অন্য ডিভাইস থেকে খুললেও পাবেন।';
-        }
-        MINE = remote;
-        afterMineChange();
-      }, () => { clearTimeout(timer); mineCol = null; localOnly(); });
-    } catch (e) { localOnly(); }
-  }
 
   // ---- ফোকাস আর কীবোর্ড ----
   function focusTyper() {
@@ -582,5 +527,4 @@
   renderLangbar();
   setLang('php');
   hint.hidden = document.activeElement === typer;
-  connectStore();
 })();
