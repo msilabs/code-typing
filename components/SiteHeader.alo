@@ -48,6 +48,7 @@
 
     .brand {
         display: flex;
+        flex: 1 1 auto;
         align-items: center;
         gap: 10px;
         min-width: 0;
@@ -67,6 +68,8 @@
         font-weight: 700;
         letter-spacing: -0.01em;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .tagline {
@@ -149,6 +152,10 @@
     }
 
     @media (max-width: 640px) {
+        .name {
+            font-size: 16px;
+        }
+
         .tagline,
         .star .label {
             display: none;
